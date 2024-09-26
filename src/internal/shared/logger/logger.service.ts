@@ -1,5 +1,6 @@
 import { Service } from 'typedi';
 import winston from 'winston';
+import 'winston-daily-rotate-file';
 
 @Service()
 export class LoggerService {
@@ -16,7 +17,13 @@ export class LoggerService {
       ),
       transports: [
         new winston.transports.Console(),
-        new winston.transports.File({ filename: 'app.log' })
+        new winston.transports.DailyRotateFile({
+          filename: 'logs/%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          zippedArchive: true,
+          maxSize: '20m',
+          maxFiles: '14d',
+        }),
       ],
     });
   }
@@ -27,5 +34,13 @@ export class LoggerService {
 
   error(message: string) {
     this.logger.error(message);
+  }
+
+  warn(message: string) {
+    this.logger.warn(message);
+  }
+
+  debug(message: string) {
+    this.logger.debug(message);
   }
 }
