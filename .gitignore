@@ -4,3 +4,5 @@ dist
 /mongo-data
 *.log
 /logs
+private.pem
+public.pem
