@@ -10,7 +10,7 @@ import { InvalidCredentialsError } from "../shared/error/error.invalid-credentia
 export class AuthService {
     constructor(private userRepository: UserRepository, private jwtService: JwtService) {}
 
-    async signUp(email: string, password: string): Promise<string> {
+    async signUp(email: string, password: string, purpose: string): Promise<string> {
         const userExists = await this.userRepository.findUserByEmail(email);
         if (userExists) {
             throw new AlreadyExistsError('User');
@@ -18,7 +18,7 @@ export class AuthService {
 
         const encryptedPassword = await bcrypt.hash(password, 12)
 
-        const user = new User(email, encryptedPassword);
+        const user = new User(email, encryptedPassword, purpose);
         const userSchema = await this.userRepository.createUser(user);
         return this.jwtService.sign({ id: userSchema.id, email: userSchema.email });
     }

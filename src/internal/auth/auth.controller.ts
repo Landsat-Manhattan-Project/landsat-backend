@@ -5,8 +5,8 @@ import { AuthService } from "./auth.service";
 export const signUp = async (req: Request, res: Response) => {
     const authService = Container.get(AuthService);
 
-    const { email, password } = req.body;
-    const token = await authService.signUp(email, password);
+    const { email, password, purpose } = req.body;
+    const token = await authService.signUp(email, password, purpose);
 
     return res.status(201).json({ token });
 }
