@@ -21,3 +21,13 @@ export const getCoordinates = async (req: UserRequest, res: Response) => {
 
     return res.status(200).json({ coordinates });
 }
+
+export const deleteCoordinate = async (req: UserRequest, res: Response) => {
+    const coordinateService = Container.get(CoordinateService);
+    const userData = req.user as UserData;
+    const { coordinateId } = req.params;
+
+    await coordinateService.deleteCoordinate(userData, coordinateId);
+
+    return res.status(204).json();
+}

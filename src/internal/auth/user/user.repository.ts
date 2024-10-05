@@ -25,4 +25,8 @@ export class UserRepository {
     const user = await userSchema.findById(userId).select('locations');
     return user ? user.locations : [];
   }
+
+  async deleteCoordinateByUser (userId: string, coordinateId: string): Promise<User | null> {
+    return userSchema.findByIdAndUpdate(userId, { $pull: { locations: { _id: coordinateId } } }, { new: true });
+  }
 }

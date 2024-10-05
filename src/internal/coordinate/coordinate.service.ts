@@ -15,4 +15,8 @@ export class CoordinateService {
     async getAllCoordinatesByUser(userData: UserData): Promise<Coordinate[]> {
         return  this.userRepository.getCoordinatesByUser(userData.id);
     }
+
+    async deleteCoordinate(userData: UserData, coordinateId: string): Promise<void> {
+        this.userRepository.deleteCoordinateByUser(userData.id, coordinateId);
+    }
 }
