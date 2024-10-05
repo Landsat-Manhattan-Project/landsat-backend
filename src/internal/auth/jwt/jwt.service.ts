@@ -2,6 +2,9 @@ import { Service } from 'typedi';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import { config } from '../../config/config.env';
+import { UserData } from '../../shared/type/type.user.request';
+
+interface jwtSecretTokenPayload extends jwt.JwtPayload, UserData {}
 
 @Service()
 export class JwtService {
@@ -18,6 +21,6 @@ export class JwtService {
   }
 
   verify(token: string) {
-    return jwt.verify(token, this.publicKey, { algorithms: ['RS256'] });
+    return jwt.verify(token, this.publicKey, { algorithms: ['RS256'] }) as jwtSecretTokenPayload;
   }
 }

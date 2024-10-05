@@ -35,7 +35,7 @@ export class AuthService {
             throw new InvalidCredentialsError();
         }
         
-        return this.jwtService.sign({ id: user.id, email: user.email });
+        return this.jwtService.sign({ id: user.id, email: user.email, purpose: user.purpose });
     }
 
 }
