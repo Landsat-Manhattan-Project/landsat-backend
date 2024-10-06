@@ -11,5 +11,5 @@ export const config = {
   emailAddress: process.env.EMAIL_ADDRESS ?? 'landfinder.noreply@gmail.com',
   emailPassword: process.env.EMAIL_PASSWORD ?? 'landfinder-password',
   frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
-  dataApiUrl: process.env.DATA_API_URL ?? 'http://localhost:8080',
+  dataApiUrl: process.env.DATA_API_URL ?? 'http://localhost:8000',
 };

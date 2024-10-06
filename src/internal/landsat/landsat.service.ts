@@ -4,6 +4,8 @@ import * as schedule from 'node-schedule';
 import { reminderNotificationTemplate } from "./landsat.template";
 import { LoggerService } from "../shared/logger/logger.service";
 import { UserData } from "../shared/type/type.user.request";
+import * as axios from 'axios';
+import { config } from "../config/config.env";
 
 @Service()
 export class LandsatService {
@@ -24,5 +26,14 @@ export class LandsatService {
             await this.emailService.sendMail(userData.email, 'Landsat Pass Reminder', reminderNotificationTemplate({lat: latitude, lon: longitude}, date));
             this.loggerService.log(`Landsat pass reminder sent for ${date.toDateString()}`);
         });
+    }
+
+    async analyzeLandsatData(latitude: number, longitude: number, userData: UserData): Promise<string> {
+        const url = config.dataApiUrl + '/evaluate-data';
+        this.loggerService.log(`Analyzing landsat data in endpoint ${url}`);
+        const response = await axios.default.post(url, {latitude, longitude, context: userData.purpose, role: userData.role});
+        this.loggerService.log(`Landsat data analyzed for ${latitude}, ${longitude}`);
+
+        return response.data
     }
 }
