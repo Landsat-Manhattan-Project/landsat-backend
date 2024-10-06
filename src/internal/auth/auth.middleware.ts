@@ -16,7 +16,7 @@ export const authUser = (
     if (payload === null) {
       next(new UnauthorizedError('token invalido'));
     } else {
-      const user: UserData = { id: payload.id, name: payload.name, email: payload.email, purpose: payload.purpose };
+      const user: UserData = { id: payload.id, name: payload.name, email: payload.email, purpose: payload.purpose, role: payload.role };
       req.user = user;
       next();
     }
