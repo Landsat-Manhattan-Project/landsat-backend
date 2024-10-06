@@ -111,9 +111,6 @@ export const template = (
         <div class="img-container">
          <img class="frame" src="https://i.imgur.com/s1cKk8Z.png"/>
         </div>
-        <div>
-         <img class="logo" src="https://your-app-logo-link.com/logo.png"/>
-        </div>
       </div>
       <div class="main">
       

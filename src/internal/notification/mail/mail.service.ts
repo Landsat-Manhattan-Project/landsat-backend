@@ -15,7 +15,7 @@ export class MailService {
             from: '<' + config.emailAddress + '>',
             to: receiverEmail,
             subject: subject,
-            text: emailBody
+            html: emailBody
         }
 
         return await this.transport.sendMail(mailOptions);
