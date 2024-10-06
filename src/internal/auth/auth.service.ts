@@ -24,7 +24,7 @@ export class AuthService {
             purpose: userSchema.purpose, role: userSchema.role });
     }
 
-    async signIn(email: string, password: string): Promise<string> {
+    async signIn(email: string, password: string): Promise<{token: string, role: string, purpose: string}> {
         const user = await this.userRepository.findUserByEmail(email);;
 
         if (!user) {
@@ -36,7 +36,7 @@ export class AuthService {
             throw new InvalidCredentialsError();
         }
         
-        return this.jwtService.sign({ id: user.id, email: user.email, purpose: user.purpose, role: user.role });
+        return {token: this.jwtService.sign({ id: user.id, email: user.email, purpose: user.purpose, role: user.role }), role: user.role, purpose: user.purpose };
     }
 
 }
